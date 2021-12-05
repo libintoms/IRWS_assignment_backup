@@ -22,7 +22,7 @@ for filename in os.listdir(input_folder_path):
 
     #stopword removal
     stopwords=["a","for","many","of","at","as","each","and", "the", "is","this", "one", "more", "it", "can", 
-        "to", "if", "well", "in", "or", "to","their","an","but","how"]
+        "to", "if", "well", "in", "or", "to","their","an","but","how","are"]
     query_words=punc_content.split()
     stopwords_removal= [word for word in query_words if word not in stopwords]
     processed_words=' '.join(stopwords_removal)

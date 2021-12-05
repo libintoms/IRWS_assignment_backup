@@ -1,5 +1,6 @@
 import sys
 import os
+import csv
 
 if(len(sys.argv) !=3 ):
     raise ValueError('Enter three arguments')
@@ -40,13 +41,17 @@ for word in terms_doc3:
 
 #print inverted index
 list_of_unique_words=list(unique_words)
+
+#Path to output
 f=open(os.path.join(output_folder_path,'InvertedIndex_results.txt'),'w')
+
 for one_term in list_of_unique_words:
-    InvertIndexOutput=(one_term+'\t'+'D1['+str(numOfWords1[one_term])+']'+'\t'+
-    'D2['+str(numOfWords2[one_term])+']'+'\t' 
-    'D3['+str(numOfWords3[one_term])+']'+'\n')
+    
+    InvertIndexOutput=("{terms}\tD1[{count1}]\tD2[{count2}]\tD3[{count3}]\n".format(terms=one_term, count1=numOfWords1[one_term],count2=numOfWords2[one_term],count3=numOfWords3[one_term]))
+    print(InvertIndexOutput)
     
     #file write
     f.write(InvertIndexOutput)    
 f.close()
+
 
