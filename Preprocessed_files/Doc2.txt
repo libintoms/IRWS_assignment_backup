@@ -1,1 +1,1 @@
-another sample document test stemming algorithm
+anoth sampl document test stem algorithm
