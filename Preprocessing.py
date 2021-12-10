@@ -21,9 +21,6 @@ def StopWordRemoval(string_words):
     f=open(os.path.join(sys.path[0], StopWord_filename),'r')
     file_contents=f.read()
     stopwords=file_contents.split()
-    print(stopwords)
-    # stopwords=["a","for","many","of","at","as","each","and", "the", "is","this", "one", "more", "it", "can", 
-    #     "to", "if", "well", "in", "or", "to","their","an","but","how","are"]
     query_words=string_words.split()
     stopwords_removal= [word for word in query_words if word not in stopwords]
     output=' '.join(stopwords_removal)
@@ -57,16 +54,7 @@ for filename in os.listdir(input_folder_path):
     
     #stemming
     Preprocessed_output=Stemming(processed_words)
-    # string_to_words=processed_words.split()
-    # p=PorterStemmer()
-    # stemmed_words_list=[]
-    # for word in string_to_words:
-    #     x=p.stem(word,0,len(word)-1)
-    #     stemmed_words_list.append(x)
-    # # Function to convert  
-    # Preprocessed_output=listToString(stemmed_words_list)
-
-        
+            
     print(Preprocessed_output)
     
 
