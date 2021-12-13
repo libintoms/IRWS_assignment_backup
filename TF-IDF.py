@@ -26,7 +26,6 @@ for filename in os.listdir(input_folder_path):
 
     chars_row=content.splitlines(True)
     newtest = [x[:-1] for x in chars_row]
-    # print(type(newtest))
     total_count=len(newtest)
     print("The total items in array newtest: "+str(total_count))
 

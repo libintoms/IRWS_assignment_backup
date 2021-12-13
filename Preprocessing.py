@@ -37,29 +37,36 @@ def Stemming(string):
     output=listToString(stemmed_words_list)
     return output
 
-for filename in os.listdir(input_folder_path):
-    #file read
-    f=open(os.path.join(input_folder_path, filename),'r')
+files_dict={}
+all_files=os.listdir(input_folder_path)
+print(all_files)
+for file in all_files:
+    f=open(os.path.join(input_folder_path, file),'r')
     content=f.read()
-    
+    files_dict["{}".format(file)]=content
+
+for key in files_dict:
+    file_data= files_dict[key]
+
     #to lower case
-    lower_content=content.lower()
+    lower_content=file_data.lower()
 
     #removing all punctuations
     punc_content=re.sub(r'[^\w\s]','',lower_content)
+    print(punc_content)
 
     #stopword removal
     processed_words=StopWordRemoval(punc_content)
     
     
     #stemming
-    Preprocessed_output=Stemming(processed_words)
-            
+    Preprocessed_output=Stemming(processed_words)        
     print(Preprocessed_output)
     
 
     #file write
-    f=open(os.path.join(output_folder_path,filename),'w')
+    f=open(os.path.join(output_folder_path,file),'w')
+    
     f.write(Preprocessed_output)    
     f.close()
 

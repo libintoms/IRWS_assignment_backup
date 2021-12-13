@@ -39,12 +39,13 @@ numOfWords3=dict.fromkeys(unique_words,0)
 for word in terms_doc3:
     numOfWords3[word]+=1
 
-#print inverted index
+#all the unique terms from the documents
 list_of_unique_words=list(unique_words)
 
 #Path to output
 f=open(os.path.join(output_folder_path,'InvertedIndex_results.txt'),'w')
 
+#final inverted index output
 for one_term in list_of_unique_words:
     
     InvertIndexOutput=("{terms}\tD1[{count1}]\tD2[{count2}]\tD3[{count3}]\n".format(terms=one_term, count1=numOfWords1[one_term],count2=numOfWords2[one_term],count3=numOfWords3[one_term]))
