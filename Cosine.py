@@ -55,7 +55,7 @@ CoSim_d2_d3="The cosine similarity between doc2 and doc3: "+str(Cos_Sim(doc2_fre
 print(CoSim_d2_d3)
 
 #cosine simlarity between doc1 and doc3
-CoSim_d1_d3="The cosine similarity between doc2 and doc3: "+str(Cos_Sim(doc1_freq,doc3_freq))
+CoSim_d1_d3="The cosine similarity between doc1 and doc3: "+str(Cos_Sim(doc1_freq,doc3_freq))
 print(CoSim_d1_d3)
 
 #Path to output
