@@ -1,6 +1,6 @@
 import sys
 import os
-import csv
+
 
 if(len(sys.argv) !=3 ):
     raise ValueError('Enter three arguments')
