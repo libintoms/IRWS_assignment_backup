@@ -44,12 +44,12 @@ def Stemming(string):
     return output
 
 #cosine similarity function
-def Cos_Sim(v1,v2):
-    dot_prod = sum(n1 * n2 for n1, n2 in zip(v1, v2))
-    vector1 = math.sqrt(sum(n**2 for n in v1))
+def Cos_Sim(v1, v2):
+    dot_product = sum(n1 * n2 for n1, n2 in zip(v1, v2))
+    vector_1 = math.sqrt(sum(n**2 for n in v1))
     vector2 = math.sqrt(sum(n**2 for n in v2))
-    cross_prod = vector1*vector2
-    return (dot_prod/cross_prod)
+    cross_prod = vector_1*vector2
+    return (dot_product/cross_prod)
 
 files_dict={}
 all_files=os.listdir(input_folder_path)
@@ -73,7 +73,7 @@ for key in files_dict:
 
     #removing all punctuations
     punc_content=re.sub(r'[^\w\s]','',lower_content)
-    print(punc_content)
+    # print(punc_content)
 
     #stopword removal
     processed_words=StopWordRemoval(punc_content)
@@ -81,7 +81,7 @@ for key in files_dict:
     
     #stemming
     Preprocessed_output=Stemming(processed_words)        
-    print(Preprocessed_output)
+    # print(Preprocessed_output)
 
     #split the words
     terms_docs=Preprocessed_output.split(' ')  
@@ -93,8 +93,14 @@ terms_doc1=all_terms[0]
 terms_doc2=all_terms[1]
 terms_doc3=all_terms[2]
 
+print(terms_doc1)
+print(terms_doc2)
+print(terms_doc3)
+
 #set of unique words from all documents
 unique_words=set(terms_doc1).union(set(terms_doc2).union(set(terms_doc3)))
+print(unique_words)
+
 
 #count of terms in the document
 numOfWords1=dict.fromkeys(unique_words,0)
@@ -113,10 +119,8 @@ list_of_unique_words=list(unique_words)
 #final inverted index output
 array_for_IINDX=[]
 for one_term in list_of_unique_words:
-    
-    # InvertIndexOutput=("{terms}\tD1[{count1}]\tD2[{count2}]\tD3[{count3}]\n".format(terms=one_term, count1=numOfWords1[one_term],count2=numOfWords2[one_term],count3=numOfWords3[one_term]))
     InvertIndexOutput=(numOfWords1[one_term],numOfWords2[one_term],numOfWords3[one_term])
-    # print(InvertIndexOutput)
+    print(InvertIndexOutput)
     array_for_IINDX.append(InvertIndexOutput)
 
     
@@ -158,6 +162,7 @@ print(TF_doc3)
 TF_IDF_doc1=[]
 TF_IDF_doc2=[]
 TF_IDF_doc3=[]
+uniq_words_idf=[]
 for n in range(len(freq_doc1)):
     count=0
     if freq_doc1[n]>0:
@@ -168,16 +173,19 @@ for n in range(len(freq_doc1)):
         count+=1
     
     no_of_docs =3
+    uniq_words_idf.append(math.log10(no_of_docs/count))
         
     TF_IDF_doc1.append(round(TF_doc1[n]*math.log10(no_of_docs/count),3))
     TF_IDF_doc2.append(round(TF_doc2[n]*math.log10(no_of_docs/count),3))
     TF_IDF_doc3.append(round(TF_doc3[n]*math.log10(no_of_docs/count),3))
 
-
+print("Only IDF for each term")
+print(uniq_words_idf)
 
 
 #code for processing of Query words below
 print("="*20)
+print("The query words processing below: ")
 #Preprocessing of query words
 #to lower case
 lower_content=Query_words.lower()
@@ -190,17 +198,54 @@ processed_words=StopWordRemoval(punc_content)
 
 #stemming
 Preprocessed_query=Stemming(processed_words)        
-print(Preprocessed_query)
 
 #inverted index
-list=Preprocessed_query.split(" ")
-print(list)
-query_set=set(list)
+query_list=Preprocessed_query.split(" ")
+query_set=set(query_list)
 print(query_set)
+countOfWords_in_doc=dict.fromkeys(query_set,0)
+for word in query_list:
+    countOfWords_in_doc[word]+=1
+# print(countOfWords_in_doc)  #inverted index stored as dictionary in this variable
+
+#code for query inverted index
+uniq_words_dict=dict.fromkeys(unique_words,0)
+
+for k in query_set:
+    if k in uniq_words_dict:
+        uniq_words_dict[k]=1
+print (uniq_words_dict)
+             
+print("Only values:")
+invrtd_indx_query=uniq_words_dict.values()
+invrtd_indx_query=list(invrtd_indx_query)
+print(invrtd_indx_query)
+print(uniq_words_idf)
+print("*"*30)
+
+#Inverted indx_qr multiply IDF_qr
+II_IDF_qr = [a*b for a,b in zip(uniq_words_idf,invrtd_indx_query)]
+
+#cosine similarity
+#for document 1
+CoSim_d1="The similarity for query words in document 1: "+str(Cos_Sim(II_IDF_qr,TF_IDF_doc1))
+
+#for document 2
+CoSim_d2="The similarity for query words in document 2: "+str(Cos_Sim(II_IDF_qr,TF_IDF_doc2))
+
+#for document 3
+CoSim_d3="The similarity for query words in document 3: "+str(Cos_Sim(II_IDF_qr,TF_IDF_doc3))
+
+#write to file
+f=open(os.path.join(output_folder_path,'IR_sys_results.txt'),'w+')
+f.write("%s\n%s\n%s\n" % (CoSim_d1, CoSim_d2, CoSim_d3))  
+f.close()
 
 
 
-#Query words
+
+
+
 
 
 

@@ -94,4 +94,20 @@ Output:
 The cosine similarity between doc1 and doc2: 0.08485745064821397
 The cosine similarity between doc2 and doc3: 0.0
 The cosine similarity between doc1 and doc3: 0.0
-  
+
+#Instructions to run IR system script IR_Sys.py:-
+1. Enter the folder path of input file, a separate output folder, stopwords list file and, the query words within double inverted commas as arguments: python IR_Sys.py <infolder> <outfolder> <stopwords-list> "Query words"
+eg: python IR_Sys.py "D:\IRWS\Input_files" "D:\IRWS\IR_results" "StopWords.txt" "Sample, Document!"
+
+Sample Input
+Doc1: This is a sample document, to check if the file read feature works well! -"Test Author"
+Doc2: This is another sample document, to test the Stemming Algorithm. Sample document.
+Doc3: Yesterday, rain-fog; today, frost-mist. But how fascinating each words in the documents are!
+
+Output:
+The similarity for query words in document 1: 0.14732671611824286
+The similarity for query words in document 2: 0.1919938055229311
+The similarity for query words in document 3: 0.0
+
+#Instructions to run IR system script Probfuse.py:-
+
