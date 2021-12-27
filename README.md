@@ -15,6 +15,8 @@ List of scripts in the folder:
 2. InvertedIndex.py
 3. TF-IDF.py
 4. Cosine.py  
+5. IR_Sys.py
+6. ProbFuse.py
 
 Libray file:
 1. PorterStemmer.py  
@@ -109,5 +111,8 @@ The similarity for query words in document 1: 0.14732671611824286
 The similarity for query words in document 2: 0.1919938055229311
 The similarity for query words in document 3: 0.0
 
-#Instructions to run IR system script Probfuse.py:-
-
+#Instructions to run Fusion script i.e., Probfuse.py:-
+1. Enter the command "python Probfuse.py"
+2. Make sure the historic data and live data file are saved in the same folder.
+3. Enter the correct input for questions asked (ensure correct formatting is followed)
+4. The final output will be stored in the file: Fusion_results.txt

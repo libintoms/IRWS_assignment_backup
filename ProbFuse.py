@@ -1,3 +1,4 @@
+import os
 import sys
 import csv
 
@@ -119,12 +120,48 @@ lresult_D=liveresult_dict['D']
 #input statement
 fusion_input = input("What results to be fused out of A, B, C or D enter engine name comma seperated\n")
 fusion_array = fusion_input.split(",")
-print(fusion_array)
 
-for engine in liveresult_dict:
-    if engine in fusion_array:
-        live_results_csv_dictionary_array = liveresult_dict[engine]
-        print(live_results_csv_dictionary_array)
+
+# for keys in liveresult_dict:
+#     if keys in fusion_array:
+#         live_results_csv_dictionary_array = liveresult_dict[keys]
+#         # print(live_results_csv_dictionary_array)
+print("#"*30)        
+
+
+A_keys = sorted([k for k in res.keys() if k[-1] == "A"])
+Output_Doc_A = []
+for i in range(len(A_keys)):
+    Output_Doc_A.append(dict.fromkeys(lresult_A[i], res[A_keys[i]]))
+
+Out_A=("Probfuse score for each doc in engine A :\n"+str(Output_Doc_A))
+
+B_keys = sorted([k for k in res.keys() if k[-1] == "B"])
+Output_Doc_B = []
+for i in range(len(B_keys)):
+    Output_Doc_B.append(dict.fromkeys(lresult_B[i], res[B_keys[i]]))
+Out_B=("Probfuse score for each doc in engine B :\n"+str(Output_Doc_B))
+
+C_keys = sorted([k for k in res.keys() if k[-1] == "C"])
+Output_Doc_C = []
+for i in range(len(C_keys)):
+    Output_Doc_C.append(dict.fromkeys(lresult_C[i], res[C_keys[i]]))
+Out_C=("Probfuse score for each doc in engine C :\n"+str(Output_Doc_C))
+
+D_keys = sorted([k for k in res.keys() if k[-1] == "D"])
+Output_Doc_D = []
+for i in range(len(D_keys)):
+    Output_Doc_D.append(dict.fromkeys(lresult_D[i], res[D_keys[i]]))
+Out_D=("Probfuse score for each doc in engine D :\n"+str(Output_Doc_D))
+
+f=open(os.path.join(sys.path[0],'Fusion_results.txt'),'w+')
+f.write("%s\n%s\n%s\n%s\n" % (Out_A, Out_B, Out_C, Out_D))  
+f.close()
+
+
+
+
+
 
 
     
